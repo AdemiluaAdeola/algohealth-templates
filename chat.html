@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlgoHealth AI Assistant</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f8f9fb;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      background: white;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #0066ff;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .message {
+      margin-bottom: 1rem;
+      display: flex;
+    }
+
+    .user {
+      justify-content: flex-end;
+    }
+
+    .bot {
+      justify-content: flex-start;
+    }
+
+    .msg {
+      background: #e6e6e6;
+      padding: 0.8rem 1rem;
+      border-radius: 20px;
+      max-width: 80%;
+      line-height: 1.4;
+    }
+
+    .user .msg {
+      background: #0066ff;
+      color: white;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .chat-input button {
+      background: #0066ff;
+      color: white;
+      border: none;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .chat-input button:hover {
+      background: #0050cc;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">🤖 AlgoHealth Assistant</div>
+    <div class="chat-body" id="chat-body">
+      <div class="message bot">
+        <div class="msg">Hello! I’m Algo, your AI health assistant. How are you feeling today?</div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Describe your symptoms..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatBody = document.getElementById("chat-body");
+    const userInput = document.getElementById("user-input");
+
+    const responses = [
+      { keyword: "headache", reply: "That might be due to stress, dehydration, or lack of sleep. Try resting and staying hydrated. If it persists, consult a doctor." },
+      { keyword: "fever", reply: "A fever can indicate an infection. Monitor your temperature and rest. If it lasts more than 2 days, book a doctor’s appointment." },
+      { keyword: "cough", reply: "Persistent cough could be due to a cold or allergies. Stay hydrated and avoid dusty areas. See a doctor if it lasts beyond a week." },
+      { keyword: "stomach", reply: "You may be experiencing indigestion. Try eating light meals and staying hydrated. Seek medical help if pain intensifies." }
+    ];
+
+    function sendMessage() {
+      const message = userInput.value.trim();
+      if (message === "") return;
+
+      // Display user message
+      const userMsg = document.createElement("div");
+      userMsg.className = "message user";
+      userMsg.innerHTML = `<div class="msg">${message}</div>`;
+      chatBody.appendChild(userMsg);
+
+      // Clear input
+      userInput.value = "";
+
+      // Scroll down
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Bot response after short delay
+      setTimeout(() => {
+        const botMsg = document.createElement("div");
+        botMsg.className = "message bot";
+        botMsg.innerHTML = `<div class="msg">${getBotReply(message)}</div>`;
+        chatBody.appendChild(botMsg);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 1000);
+    }
+
+    function getBotReply(message) {
+      const lower = message.toLowerCase();
+      for (const r of responses) {
+        if (lower.includes(r.keyword)) return r.reply;
+      }
+      return "I’m not entirely sure. It might be best to rest, stay hydrated, and seek medical attention if it persists.";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlgoHealth – AI-Powered Health Assistant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f8f9fb;
+      color: #222;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem 2rem;
+    }
+
+    nav h1 {
+      font-size: 1.5rem;
+      color: #0066ff;
+      font-weight: 700;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #0066ff;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: linear-gradient(to right, #0066ff, #00c6ff);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background: white;
+      color: #0066ff;
+      padding: 0.8rem 1.8rem;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #e6e6e6;
+    }
+
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h3.section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: #0066ff;
+      margin-bottom: 1rem;
+    }
+
+    p.section-sub {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      color: #555;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .feature:hover {
+      transform: translateY(-8px);
+    }
+
+    .feature h4 {
+      color: #0066ff;
+      margin-bottom: 1rem;
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 250px;
+      background: white;
+      border-left: 5px solid #0066ff;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+
+    .step h4 {
+      margin-bottom: 0.5rem;
+      color: #0066ff;
+    }
+
+    footer {
+      background: #0066ff;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .team {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .team-member {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .team-member h4 {
+      color: #0066ff;
+      margin-bottom: 0.3rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+      nav ul {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>AlgoHealth</h1>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#team">Team</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Revolutionizing Healthcare with AI</h2>
+    <p>AlgoHealth is your smart AI health assistant — connecting people, data, and doctors for faster, smarter, and more personalized care.</p>
+    <button class="btn" onclick="scrollToSection('about')">Learn More</button>
+  </section>
+
+  <section id="about">
+    <h3 class="section-title">About AlgoHealth</h3>
+    <p class="section-sub">
+      AlgoHealth helps users understand their health better through AI-driven symptom analysis, smart health record management, and doctor connectivity — all in one seamless experience.
+    </p>
+  </section>
+
+  <section id="features">
+    <h3 class="section-title">Key Features</h3>
+    <div class="features">
+      <div class="feature">
+        <h4>AI Symptom Analysis</h4>
+        <p>Input your symptoms or select from suggestions — the AI interprets and provides real-time insights.</p>
+      </div>
+      <div class="feature">
+        <h4>Smart Health Records</h4>
+        <p>Maintain an up-to-date digital health record securely for personalized AI recommendations.</p>
+      </div>
+      <div class="feature">
+        <h4>Doctor Appointment Integration</h4>
+        <p>Connect with verified doctors near you or share your AI summary for better consultations.</p>
+      </div>
+      <div class="feature">
+        <h4>Symptom Tracking</h4>
+        <p>The AI follows your progress and compiles reports automatically if symptoms persist.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h3 class="section-title">How It Works</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>Step 1: Register</h4>
+        <p>Create an account with basic info and health details.</p>
+      </div>
+      <div class="step">
+        <h4>Step 2: Input Health Data</h4>
+        <p>Fill your health record for accurate AI-driven results.</p>
+      </div>
+      <div class="step">
+        <h4>Step 3: Chat with AI</h4>
+        <p>Describe or select your symptoms; get instant health insights.</p>
+      </div>
+      <div class="step">
+        <h4>Step 4: Book Appointment</h4>
+        <p>Choose to connect with a nearby doctor if needed — AI attaches your notes for smoother care.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <h3 class="section-title">Meet the Team</h3>
+    <p class="section-sub">Our innovative team bringing AlgoHealth to life. (Add team details here!)</p>
+    <div class="team">
+      <!-- Example structure -->
+      <!--
+      <div class="team-member">
+        <img src="profile.jpg" alt="Team Member" />
+        <h4>John Doe</h4>
+        <p>AI Developer</p>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 AlgoHealth | Built with ❤️ for Hackathons</p>
+  </footer>
+
+  <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>

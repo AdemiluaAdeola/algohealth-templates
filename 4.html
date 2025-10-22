@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoHealth - 您的智能AI健康助手</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #4361EE;
+            --secondary-color: #3F37C9;
+            --accent-color: #F72585;
+            --success-color: #06FFA5;
+            --warning-color: #FFB700;
+            --dark-color: #1A1A2E;
+            --light-color: #F8F9FA;
+            --text-muted: #6C757D;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-success: linear-gradient(135deg, #06FFA5 0%, #00D9FF 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-color);
+            overflow-x: hidden;
+            background-color: #FFFFFF;
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .navbar-nav .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        .btn-gradient {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+            color: white;
+        }
+        
+        /* 英雄区域 */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://picsum.photos/seed/healthcare/1920/1080.jpg') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-hero {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary-hero {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-primary-hero:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline-hero {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline-hero:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .hero-image {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+            animation: float-image 6s ease-in-out infinite;
+        }
+        
+        @keyframes float-image {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        /* 统计数据区域 */
+        .stats-section {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-icon {
+            font-size: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        
+        /* 功能特点区域 */
+        .features-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px 30px;
+            height: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon-wrapper {
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        /* 工作原理区域 */
+        .process-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .process-timeline {
+            position: relative;
+            padding: 50px 0;
+        }
+        
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        
+        .process-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            border: 5px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .process-step:hover .step-number {
+            transform: scale(1.1);
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .step-description {
+            color: var(--text-muted);
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        
+        /* 用户评价区域 */
+        .testimonials-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            height: 100%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 4rem;
+            color: var(--primary-color);
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-color);
+            margin-bottom: 30px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+        
+        .author-info h5 {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+        
+        .rating {
+            color: var(--warning-color);
+            margin-bottom: 20px;
+        }
+        
+        /* CTA区域 */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 25px;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-cta {
+            padding: 18px 45px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cta-white {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-cta-white:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+            color: var(--primary-color);
+        }
+        
+        /* 页脚 */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-brand {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background: var(--gradient-primary);
+            transform: translateY(-5px);
+            color: white;
+        }
+        
+        .newsletter-form {
+            position: relative;
+            margin-top: 30px;
+        }
+        
+        .newsletter-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-color);
+        }
+        
+        .newsletter-button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-button:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+        
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .process-timeline::before {
+                display: none;
+            }
+            
+            .process-step {
+                margin-bottom: 40px;
+            }
+        }
+        
+        /* 加载动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-heart-pulse-fill me-2"></i>AlgoHealth
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">功能特点</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#process">工作原理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">用户评价</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">联系我们</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a href="#download" class="btn btn-gradient">下载应用</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero-section">
+        <div class="hero-particles">
+            <div class="particle" style="width: 20px; height: 20px; left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="width: 15px; height: 15px; left: 20%; animation-delay: 2s;"></div>
+            <div class="particle" style="width: 25px; height: 25px; left: 35%; animation-delay: 4s;"></div>
+            <div class="particle" style="width: 10px; height: 10px; left: 50%; animation-delay: 6s;"></div>
+            <div class="particle" style="width: 30px; height: 30px; left: 65%; animation-delay: 8s;"></div>
+            <div class="particle" style="width: 18px; height: 18px; left: 80%; animation-delay: 10s;"></div>
+            <div class="particle" style="width: 22px; height: 22px; left: 90%; animation-delay: 12s;"></div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6 hero-content" data-aos="fade-right">
+                    <h1 class="hero-title">您的智能AI健康助手</h1>
+                    <p class="hero-subtitle">简化医疗保健访问，让您掌控自己的健康。智能症状追踪、AI驱动诊断和无缝医生预约，尽在一个平台。</p>
+                    <div class="hero-buttons">
+                        <a href="#download" class="btn-hero btn-primary-hero">
+                            <i class="bi bi-download"></i>
+                            立即下载
+                        </a>
+                        <a href="#process" class="btn-hero btn-outline-hero">
+                            <i class="bi bi-play-circle"></i>
+                            了解更多
+                        </a>
+                    </div>
+                    <div class="mt-5">
+                        <div class="d-flex gap-4">
+                            <div>
+                                <h3 class="text-white mb-0">4.8</h3>
+                                <div class="text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white mb-0">100K+</h3>
+                                <p class="text-white-50">活跃用户</p>
+                            </div>
+                            <div>
+                                <h3 class="text-white mb-0">98%</h3>
+                                <p class="text-white-50">满意度</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image" data-aos="fade-left">
+                    <img src="https://picsum.photos/seed/healthapp/600/700.jpg" alt="AlgoHealth App" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 统计数据区域 -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="stat-number" data-count="150000">0</div>
+                        <div class="stat-label">注册用户</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-hospital"></i>
+                        </div>
+                        <div class="stat-number" data-count="500">0</div>
+                        <div class="stat-label">合作医院</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                        <div class="stat-number" data-count="98">0</div>
+                        <div class="stat-label">准确率 %</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-award-fill"></i>
+                        </div>
+                        <div class="stat-number" data-count="25">0</div>
+                        <div class="stat-label">获奖项目</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能特点区域 -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">核心功能</h2>
+                <p class="section-subtitle">AlgoHealth为您提供全方位的健康管理解决方案</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="bi bi-activity feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">AI症状分析器</h3>
+                        <p class="feature-description">理解用户输入（文字或选择）并提供实时健康洞察，帮助您更好地了解身体状况。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="bi bi-file-medical feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">数字健康记录</h3>
+                        <p class="feature-description">安全、结构化地存储患者病史和医疗数据，随时随地查看您的健康信息。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="bi bi-arrow-repeat feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">智能随访系统</h3>
+                        <p class="feature-description">长期跟踪症状变化，自动更新患者记录，确保您的健康状况得到持续关注。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="bi bi-calendar-check feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">医生预约集成</h3>
+                        <p class="feature-description">连接用户与附近认证医生或诊所，轻松安排就诊，不再为预约烦恼。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="bi bi-shield-lock feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">数据隐私与安全</h3>
+                        <p class="feature-description">端到端加密确保所有健康信息保密，您的数据安全是我们的首要任务。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="bi bi-chat-dots feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">AI聊天界面</h3>
+                        <p class="feature-description">通过直观的聊天界面与AI健康助手互动，获得个性化的健康建议和诊断。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作原理区域 -->
+    <section id="process" class="process-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">工作原理</h2>
+                <p class="section-subtitle">简单五步，开启您的智能健康管理之旅</p>
+            </div>
+            <div class="process-timeline">
+                <div class="row">
+                    <div class="col-md-2 col-6" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <h4 class="step-title">用户注册</h4>
+                            <p class="step-description">创建账户并提供基本个人信息</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <h4 class="step-title">健康记录</h4>
+                            <p class="step-description">填写数字健康记录和病史</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <h4 class="step-title">AI互动</h4>
+                            <p class="step-description">通过聊天描述症状获取建议</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <h4 class="step-title">选择行动</h4>
+                            <p class="step-description">预约医生或获取AI诊断</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <h4 class="step-title">随访追踪</h4>
+                            <p class="step-description">AI监控症状并生成报告</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5" data-aos="fade-up">
+                <img src="https://picsum.photos/seed/appworkflow/1000/500.jpg" alt="App Workflow" class="img-fluid rounded-4 shadow-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- 用户评价区域 -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">用户评价</h2>
+                <p class="section-subtitle">听听用户对AlgoHealth的真实反馈</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text">"AlgoHealth彻底改变了我管理健康的方式。AI症状分析器非常准确，帮助我在早期发现了一些健康问题。"</p>
+                        <div class="testimonial-author">
+                            <img src="https://picsum.photos/seed/user1/60/60.jpg" alt="User" class="author-avatar">
+                            <div class="author-info">
+                                <h5>张明</h5>
+                                <p>软件工程师</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text">"作为忙碌的职场妈妈，AlgoHealth帮我节省了大量时间。我可以快速获取健康建议，甚至直接预约医生。"</p>
+                        <div class="testimonial-author">
+                            <img src="https://picsum.photos/seed/user2/60/60.jpg" alt="User" class="author-avatar">
+                            <div class="author-info">
+                                <h5>李婷</h5>
+                                <p>市场经理</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                        <p class="testimonial-text">"我最喜欢的是数字健康记录功能。所有我的医疗信息都安全地存储在一个地方，看医生时再也不用带一堆文件了。"</p>
+                        <div class="testimonial-author">
+                            <img src="https://picsum.photos/seed/user3/60/60.jpg" alt="User" class="author-avatar">
+                            <div class="author-info">
+                                <h5>王强</h5>
+                                <p>退休教师</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA区域 -->
+    <section id="download" class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2 class="cta-title">准备好掌控您的健康了吗？</h2>
+                <p class="cta-subtitle">立即下载AlgoHealth，开启您的智能健康管理之旅</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-cta btn-cta-white">
+                        <i class="bi bi-apple"></i>
+                        App Store
+                    </a>
+                    <a href="#" class="btn-cta btn-cta-white">
+                        <i class="bi bi-google-play"></i>
+                        Google Play
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5">
+                    <h3 class="footer-brand">
+                        <i class="bi bi-heart-pulse-fill me-2"></i>AlgoHealth
+                    </h3>
+                    <p class="footer-description">您的智能AI健康助手，让健康管理变得简单、高效、个性化。</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5">
+                    <h4 class="footer-title">快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features"><i class="bi bi-chevron-right"></i> 功能特点</a></li>
+                        <li><a href="#process"><i class="bi bi-chevron-right"></i> 工作原理</a></li>
+                        <li><a href="#testimonials"><i class="bi bi-chevron-right"></i> 用户评价</a></li>
+                        <li><a href="#download"><i class="bi bi-chevron-right"></i> 下载应用</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5">
+                    <h4 class="footer-title">支持</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> 帮助中心</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> 常见问题</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> 隐私政策</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> 服务条款</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-5">
+                    <h4 class="footer-title">订阅我们的新闻</h4>
+                    <p class="footer-description">获取最新的健康资讯和AlgoHealth更新</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="您的邮箱地址">
+                        <button type="submit" class="newsletter-button">订阅</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 AlgoHealth. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 初始化AOS动画库
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '10px 0';
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.padding = '15px 0';
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            }
+        });
+
+        // 数字动画
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const countUp = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(countUp, 10);
+                } else {
+                    counter.innerText = target.toLocaleString();
+                    if (counter.getAttribute('data-count') === '98') {
+                        counter.innerText += '%';
+                    } else if (counter.getAttribute('data-count') === '150000') {
+                        counter.innerText = '150K+';
+                    }
+                }
+            });
+        };
+
+        // 使用Intersection Observer触发计数动画
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    countUp();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // 表单提交处理
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = this.querySelector('.newsletter-input');
+            if (input.value) {
+                // 显示成功消息
+                const button = this.querySelector('.newsletter-button');
+                const originalText = button.innerText;
+                button.innerText = '✓ 已订阅';
+                button.style.background = 'var(--gradient-success)';
+                
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.background = '';
+                    input.value = '';
+                }, 3000);
+            }
+        });
+
+        // 添加粒子动画
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 20 + 10 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.querySelector('.hero-particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 30000);
+        }
+
+        // 定期创建新粒子
+        setInterval(createParticle, 3000);
+    </script>
+</body>
+</html>

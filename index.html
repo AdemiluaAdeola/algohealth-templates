@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AlgoHealth – AI Health Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI-powered symptom checker, digital health records & doctor booking — all in one place.">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .gradient-bg { background: linear-gradient(135deg,#667eea 0%, #764ba2 100%); }
+    .glass { backdrop-filter: blur(8px); background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.2); }
+  </style>
+</head>
+
+<body class="text-gray-800">
+
+<!-- HERO -->
+<section class="gradient-bg text-white min-h-screen flex items-center">
+  <div class="container mx-auto px-6 text-center">
+    <img src="https://via.placeholder.com/128" alt="AlgoHealth logo" class="w-32 mx-auto mb-6 drop-shadow-lg">
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Meet AlgoHealth</h1>
+    <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Your 24/7 AI companion for instant symptom insights, secure health records & hassle-free doctor bookings.</p>
+    <a href="#waitlist" class="bg-white text-purple-700 px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition">Join the Waitlist 🚀</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-12">How It Works</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition">
+        <i class="fas fa-user-plus text-purple-600 text-4xl mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">1. Register</h3>
+        <p>Create your account & fill basic health details.</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition">
+        <i class="fas fa-file-medical text-purple-600 text-4xl mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">2. Add Records</h3>
+        <p>Upload history, allergies & meds in seconds.</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition">
+        <i class="fas fa-comments text-purple-600 text-4xl mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">3. Chat with AI</h3>
+        <p>Describe symptoms & get instant insights.</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition">
+        <i class="fas fa-calendar-check text-purple-600 text-4xl mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">4. Book Doctor</h3>
+        <p>See verified specialists & schedule instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SHOWCASE -->
+<section class="py-20">
+  <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+    <div class="md:w-1/2">
+      <img src="https://via.placeholder.com/600x400" alt="App dashboard" class="rounded-lg shadow-xl">
+    </div>
+    <div class="md:w-1/2">
+      <h2 class="text-4xl font-bold mb-6">All-in-One Health Dashboard</h2>
+      <ul class="space-y-4 text-lg">
+        <li class="flex items-start"><i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i><span><strong>AI Symptom Analyzer</strong> — real-time, evidence-based suggestions.</span></li>
+        <li class="flex items-start"><i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i><span><strong>Digital Health Records</strong> — encrypted & portable everywhere.</span></li>
+        <li class="flex items-start"><i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i><span><strong>Smart Follow-ups</strong> — auto-generated reports for your doctor.</span></li>
+        <li class="flex items-start"><i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i><span><strong>Seamless Booking</strong> — one-tap appointments with verified providers.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-4xl font-bold mb-12">Trusted by Early Users</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <blockquote class="bg-white rounded-xl p-6 shadow">
+        <p class="italic mb-4">“AlgoHealth flagged my symptoms and helped me book the right cardiologist within minutes. Lifesaver!”</p>
+        <cite class="font-semibold text-purple-700">— Maya P.</cite>
+      </blockquote>
+      <blockquote class="bg-white rounded-xl p-6 shadow">
+        <p class="italic mb-4">“Finally, a single place for my family’s medical history. The AI follow-ups are brilliant.”</p>
+        <cite class="font-semibold text-purple-700">— Luis P.</cite>
+      </blockquote>
+      <blockquote class="bg-white rounded-xl p-6 shadow">
+        <p class="italic mb-4">“I avoided an unnecessary ER visit thanks to the AI’s advice. Highly recommend.”</p>
+        <cite class="font-semibold text-purple-700">— Anika R.</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST / CTA -->
+<section id="waitlist" class="py-20 gradient-bg text-white">
+  <div class="container mx-auto px-6 text-center max-w-2xl">
+    <h2 class="text-4xl font-bold mb-4">Be First in Line</h2>
+    <p class="mb-8 text-lg">We’re rolling out invites soon. Reserve your spot and get 3 months of premium features free.</p>
+    <form action="https://formspree.io/f/your-form-id" method="POST" class="flex flex-col sm:flex-row gap-4">
+      <input type="email" name="email" placeholder="Enter your email" required class="flex-1 px-6 py-3 rounded-full text-gray-900">
+      <button type="submit" class="bg-white text-purple-700 px-8 py-3 rounded-full font-semibold shadow hover:shadow-lg transition">Get Early Access</button>
+    </form>
+    <p class="text-xs mt-4 opacity-80">Zero spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-gray-300 py-10">
+  <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="flex items-center gap-3">
+      <img src="https://via.placeholder.com/36" alt="Logo" class="w-9">
+      <span class="font-bold text-xl">AlgoHealth</span>
+    </div>
+    <div class="flex gap-6">
+      <a href="#" class="hover:text-white"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="hover:text-white"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:hello@algohealth.com" class="hover:text-white"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+  <p class="text-center text-xs mt-6">&copy; <span id="year"></span> AlgoHealth. All rights reserved.</p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
